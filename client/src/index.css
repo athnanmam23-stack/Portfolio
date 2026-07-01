@@ -1,0 +1,257 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@layer base {
+  .font-elegant {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --primary: #1db8a8;
+  --primary-foreground: #f0fffe;
+  --sidebar-primary: #1db8a8;
+  --sidebar-primary-foreground: #f0fffe;
+  --chart-1: #1db8a8;
+  --chart-2: #d4a574;
+  --chart-3: #1db8a8;
+  --chart-4: #0a9b8f;
+  --chart-5: #088078;
+  --radius: 0.75rem;
+  --background: oklch(0.12 0.01 280);
+  --foreground: oklch(0.95 0.01 280);
+  --card: oklch(0.18 0.01 280);
+  --card-foreground: oklch(0.95 0.01 280);
+  --popover: oklch(0.18 0.01 280);
+  --popover-foreground: oklch(0.95 0.01 280);
+  --secondary: oklch(0.22 0.01 280);
+  --secondary-foreground: oklch(0.85 0.01 280);
+  --muted: oklch(0.35 0.01 280);
+  --muted-foreground: oklch(0.65 0.02 280);
+  --accent: #1db8a8;
+  --accent-foreground: oklch(0.95 0.01 280);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.25 0.01 280);
+  --input: oklch(0.25 0.01 280);
+  --ring: #1db8a8;
+  --sidebar: oklch(0.18 0.01 280);
+  --sidebar-foreground: oklch(0.95 0.01 280);
+  --sidebar-accent: #1db8a8;
+  --sidebar-accent-foreground: oklch(0.95 0.01 280);
+  --sidebar-border: oklch(0.25 0.01 280);
+  --sidebar-ring: #1db8a8;
+}
+
+.dark {
+  --primary: #1db8a8;
+  --primary-foreground: #f0fffe;
+  --sidebar-primary: #1db8a8;
+  --sidebar-primary-foreground: #f0fffe;
+  --background: oklch(0.12 0.01 280);
+  --foreground: oklch(0.95 0.01 280);
+  --card: oklch(0.18 0.01 280);
+  --card-foreground: oklch(0.95 0.01 280);
+  --popover: oklch(0.18 0.01 280);
+  --popover-foreground: oklch(0.95 0.01 280);
+  --secondary: oklch(0.22 0.01 280);
+  --secondary-foreground: oklch(0.85 0.01 280);
+  --muted: oklch(0.35 0.01 280);
+  --muted-foreground: oklch(0.65 0.02 280);
+  --accent: #1db8a8;
+  --accent-foreground: oklch(0.95 0.01 280);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.25 0.01 280);
+  --input: oklch(0.25 0.01 280);
+  --ring: #1db8a8;
+  --chart-1: #1db8a8;
+  --chart-2: #d4a574;
+  --chart-3: #1db8a8;
+  --chart-4: #0a9b8f;
+  --chart-5: #088078;
+  --sidebar: oklch(0.18 0.01 280);
+  --sidebar-foreground: oklch(0.95 0.01 280);
+  --sidebar-accent: #1db8a8;
+  --sidebar-accent-foreground: oklch(0.95 0.01 280);
+  --sidebar-border: oklch(0.25 0.01 280);
+  --sidebar-ring: #1db8a8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .font-elegant {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+
+  /* Typography System */
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    @apply text-5xl font-bold tracking-tight;
+  }
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    @apply text-4xl font-semibold tracking-tight;
+  }
+
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    @apply text-2xl font-semibold;
+  }
+
+  p {
+    font-family: 'Inter', sans-serif;
+    @apply text-base leading-relaxed;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      @apply text-3xl;
+    }
+    h2 {
+      @apply text-2xl;
+    }
+  }
+}
+
+@layer components {
+  /**
+   * Custom container utility that centers content and adds responsive padding.
+   * Portfolio Design: Organic Modernism with flowing, asymmetric layouts
+   */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Glassmorphism Card */
+  .glass-card {
+    @apply relative rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply border-white/20 bg-white/10 shadow-xl;
+  }
+
+  /* Organic Wave Divider */
+  .wave-divider {
+    @apply relative w-full overflow-hidden;
+  }
+
+  /* Smooth Scroll Animation */
+  .scroll-reveal {
+    @apply opacity-0 translate-y-8;
+  }
+
+  .scroll-reveal.in-view {
+    @apply opacity-100 translate-y-0 transition-all duration-700 ease-out;
+  }
+
+  /* Accent Gradient */
+  .accent-gradient {
+    @apply bg-gradient-to-r from-accent via-accent/80 to-accent/60;
+  }
+
+  /* Smooth Transitions */
+  .smooth-transition {
+    @apply transition-all duration-300 ease-out;
+  }
+}
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* Font Family Definitions */
+@layer base {
+  :root {
+    --font-display: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+}
+
+

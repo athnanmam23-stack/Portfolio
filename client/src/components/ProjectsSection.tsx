@@ -1,0 +1,134 @@
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { ExternalLink } from "lucide-react";
+
+export default function ProjectsSection() {
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
+  const projects = [
+    {
+      title: "Mobile App UI Design",
+      category: "UI/UX Design",
+      description: "Comprehensive mobile application interface design with user-centered approach and modern design patterns.",
+      image: "/manus-storage/project-showcase-1_6e6d46a7.png",
+      tags: ["Figma", "Mobile Design", "Prototyping"],
+    },
+    {
+      title: "Brand Identity System",
+      category: "Graphic Design",
+      description: "Complete branding package including logo design, color palette, and brand guidelines for a creative agency.",
+      image: "/manus-storage/project-showcase-2_0b25022d.png",
+      tags: ["Branding", "Logo Design", "Design System"],
+    },
+    {
+      title: "Professional Photography Portfolio",
+      category: "Photography",
+      description: "Curated collection of professional portrait, wedding, and product photography with premium editing.",
+      image: "/manus-storage/photography-gallery-sample_6964ca7c.png",
+      tags: ["Photography", "Editing", "Curation"],
+    },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
+  return (
+    <section
+      id="projects"
+      ref={ref}
+      className="relative py-20 md:py-32 bg-card"
+    >
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-2">
+            Featured Work
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+            Selected Projects
+          </h2>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="glass-card overflow-hidden group cursor-pointer"
+            >
+              {/* Image Container */}
+              <div className="relative h-48 overflow-hidden bg-muted">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <p className="text-accent text-sm font-semibold mb-2">
+                  {project.category}
+                </p>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-1 bg-accent/10 text-accent text-xs rounded font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* View Button */}
+                <button className="w-full px-4 py-2 border border-accent text-accent rounded-lg font-semibold hover:bg-accent/10 transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                  View Project
+                  <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
