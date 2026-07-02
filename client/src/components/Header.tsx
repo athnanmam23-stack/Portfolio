@@ -23,7 +23,12 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-white/10">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
         {/* Logo */}
         <motion.a
           href="#"
@@ -33,7 +38,7 @@ export default function Header() {
           className="flex items-center gap-2 group"
         >
           <img
-            src="/manus-storage/brand-logo_eac8fcf1.png"
+            src="/logo.png"
             alt="Athnan"
             className="w-8 h-8 group-hover:scale-110 transition-transform duration-300"
           />
@@ -76,7 +81,7 @@ export default function Header() {
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-      </div>
+      </motion.div>
 
       {/* Mobile Navigation */}
       {isOpen && (

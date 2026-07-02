@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -67,9 +67,14 @@ export default function ContactSection() {
       label: "LinkedIn",
     },
     {
-      icon: Github,
-      href: "#",
-      label: "GitHub",
+      icon: Instagram,
+      href: "https://www.instagram.com/athnan_maxz_?igsh=N2Z1Zmw0d2h0ZGty&utm_source=qr",
+      label: "Instagram",
+    },
+    {
+      icon: Facebook,
+      href: "https://www.facebook.com/share/1BdutJJPSn/?mibextid=wwXIfr",
+      label: "Facebook",
     },
   ];
 
@@ -97,9 +102,75 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={ref}
-      className="relative py-20 md:py-32 bg-background"
+      className="relative py-20 md:py-32 bg-background overflow-hidden"
     >
-      <div className="container mx-auto px-4">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.16, 1],
+            opacity: [0.24, 0.44, 0.24],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-25 left-20 w-84 h-84 bg-accent/17 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.24, 1],
+            opacity: [0.22, 0.42, 0.22],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute bottom-25 right-20 w-72 h-72 bg-pink-500/17 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.14, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 16,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute top-1/3 right-1/3 w-92 h-92 bg-orange-500/15 rounded-full blur-3xl"
+        />
+        
+        {/* Floating Particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, i % 2 === 0 ? 20 : -20, 0],
+              opacity: [0.27, 0.54, 0.27],
+            }}
+            transition={{
+              duration: 9 + i * 2.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.9,
+            }}
+            className="absolute w-2 h-2 bg-accent/37 rounded-full"
+            style={{
+              top: `${22 + i * 13}%`,
+              left: `${14 + i * 13}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

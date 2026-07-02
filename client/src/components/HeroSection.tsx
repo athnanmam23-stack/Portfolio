@@ -17,7 +17,7 @@ export default function HeroSection() {
         <div
           className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
-            backgroundImage: `url('/manus-storage/250A9987.jpg_7c8289fa.webp')`,
+            backgroundImage: `url('/hero-image.jpg')`,
             backgroundPosition: 'left center',
           }}
         />
@@ -103,7 +103,7 @@ export default function HeroSection() {
               {/* Photo Inside Box */}
               <div className="absolute inset-0 rounded-3xl overflow-hidden">
                 <img
-                  src="/manus-storage/250A9987.jpg_7c8289fa.webp"
+                  src="/hero-image.jpg"
                   alt="Athnan"
                   className="w-full h-full object-cover"
                 />

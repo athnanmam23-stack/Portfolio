@@ -60,9 +60,75 @@ export default function ExperienceSection() {
     <section
       id="experience"
       ref={ref}
-      className="relative py-20 md:py-32 bg-card"
+      className="relative py-20 md:py-32 bg-card overflow-hidden"
     >
-      <div className="container mx-auto px-4">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.25, 0.45, 0.25],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-10 right-20 w-72 h-72 bg-accent/15 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 11,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute bottom-10 left-20 w-64 h-64 bg-teal-500/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.2, 0.35, 0.2],
+          }}
+          transition={{
+            duration: 13,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute top-1/3 right-1/3 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl"
+        />
+        
+        {/* Floating Particles */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -25, 0],
+              x: [0, i % 2 === 0 ? -15 : 15, 0],
+              opacity: [0.25, 0.5, 0.25],
+            }}
+            transition={{
+              duration: 5 + i * 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.6,
+            }}
+            className="absolute w-2 h-2 bg-accent/35 rounded-full"
+            style={{
+              top: `${15 + i * 18}%`,
+              right: `${15 + i * 10}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

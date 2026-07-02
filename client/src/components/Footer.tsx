@@ -20,7 +20,7 @@ export default function Footer() {
           {/* Left Section */}
           <div className="flex items-center gap-3">
             <img
-              src="/manus-storage/brand-logo_eac8fcf1.png"
+              src="/logo.png"
               alt="Athnan"
               className="w-8 h-8"
             />
