@@ -22,7 +22,7 @@ export default function HeroSection() {
           }}
         />
         {/* Gradient Overlay - Right side darker for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-l from-background/95 via-background/85 to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/30" />
         {/* Additional dark overlay on top */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/80" />
       </div>
