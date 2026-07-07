@@ -1,7 +1,18 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const titles = ["Graphic Designer", "UI/UX Designer", "Photographer"];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % titles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [titles.length]);
+
   const scrollToNext = () => {
     const aboutSection = document.querySelector("#about");
     if (aboutSection) {
@@ -48,14 +59,18 @@ export default function HeroSection() {
             >
               Athnan
             </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="block text-accent text-4xl md:text-5xl lg:text-6xl whitespace-nowrap"
-            >
-              Graphic Designer
-            </motion.span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="block text-accent text-4xl md:text-5xl lg:text-6xl whitespace-nowrap"
+              >
+                {titles[currentIndex]}
+              </motion.span>
+            </AnimatePresence>
           </h1>
 
           {/* Description */}

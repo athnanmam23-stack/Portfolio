@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ExternalLink } from "lucide-react";
+import { Link } from "wouter";
 
 export default function ProjectsSection() {
   const { ref, inView } = useInView({
@@ -24,7 +25,7 @@ export default function ProjectsSection() {
       tags: ["Branding", "Logo Design", "Design System"],
     },
     {
-      title: "Professional Photography Portfolio",
+      title: "Professional Photography",
       category: "Photography",
       description: "Curated collection of professional portrait, wedding, and product photography with premium editing.",
       image: "/manus-storage/photography-gallery-sample_6964ca7c.png",
@@ -186,10 +187,28 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* View Button */}
-                <button className="w-full px-4 py-2 border border-accent text-accent rounded-lg font-semibold hover:bg-accent/10 transition-all duration-300 flex items-center justify-center gap-2 group/btn">
-                  View Project
-                  <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                {project.category === "Graphic Design" ? (
+                  <Link href="/portfolio">
+                    <button className="w-full px-4 py-2 border border-accent text-accent rounded-lg font-semibold hover:bg-accent/10 transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                      View Portfolio
+                      <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </Link>
+                ) : project.category === "Photography" ? (
+                  <Link href="/photography">
+                    <button className="w-full px-4 py-2 border border-accent text-accent rounded-lg font-semibold hover:bg-accent/10 transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                      View Portfolio
+                      <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </Link>
+                ) : (
+                  <button 
+                    disabled
+                    className="w-full px-4 py-2 border border-muted text-muted-foreground rounded-lg font-semibold cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    Coming Soon
+                  </button>
+                )}
               </div>
             </motion.div>
           ))}
