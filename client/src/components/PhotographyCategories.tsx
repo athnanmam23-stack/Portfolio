@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Camera, Heart, Cake, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { useState, useEffect } from "react";
 
 const categories = [
   {
@@ -45,6 +46,17 @@ export default function PhotographyCategories() {
     threshold: 0.1,
     triggerOnce: true,
   });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Fallback to ensure content is visible on mobile
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const shouldAnimate = inView || isVisible;
 
   return (
     <section className="relative min-h-screen py-20 md:py-32 bg-background overflow-hidden">
@@ -81,7 +93,7 @@ export default function PhotographyCategories() {
         {/* Back Button */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
-          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
@@ -99,13 +111,13 @@ export default function PhotographyCategories() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            animate={shouldAnimate ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 mb-6"
           >
@@ -126,7 +138,7 @@ export default function PhotographyCategories() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={shouldAnimate ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
         >
           {categories.map((category) => {

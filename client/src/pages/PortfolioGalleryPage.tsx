@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PortfolioGallery from "@/components/PortfolioGallery";
 import { useParams } from "wouter";
@@ -9,7 +8,6 @@ export default function PortfolioGalleryPage() {
 
   return (
     <>
-      <Header />
       <main>
         <PortfolioGallery categoryId={categoryId} />
       </main>

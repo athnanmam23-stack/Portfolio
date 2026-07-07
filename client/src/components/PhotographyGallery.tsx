@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowLeft, ZoomIn } from "lucide-react";
 import { Link } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const categoryData: Record<string, { title: string; description: string; color: string }> = {
   wedding: {
@@ -35,6 +35,17 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
     threshold: 0.1,
     triggerOnce: true,
   });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Fallback to ensure content is visible on mobile
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const shouldAnimate = inView || isVisible;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -91,7 +102,7 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
@@ -120,7 +131,7 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={shouldAnimate ? "visible" : "hidden"}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           {galleryItems.map((item) => (

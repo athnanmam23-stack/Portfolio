@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { PenTool, Image, CreditCard, Utensils, Shirt, Store, Layout, Frame, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { useState, useEffect } from "react";
 
 const categories = [
   {
@@ -87,6 +88,17 @@ export default function PortfolioCategories() {
     threshold: 0.1,
     triggerOnce: true,
   });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Fallback to ensure content is visible on mobile
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const shouldAnimate = inView || isVisible;
 
   return (
     <section className="relative min-h-screen py-20 md:py-32 bg-background overflow-hidden">
@@ -123,7 +135,7 @@ export default function PortfolioCategories() {
         {/* Back Button */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
-          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
@@ -141,7 +153,7 @@ export default function PortfolioCategories() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -160,7 +172,7 @@ export default function PortfolioCategories() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={shouldAnimate ? "visible" : "hidden"}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {categories.map((category) => {
