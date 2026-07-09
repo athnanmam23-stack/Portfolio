@@ -17,20 +17,23 @@ const categoryData: Record<string, { title: string; description: string; color: 
   },
 };
 
-// Placeholder gallery items - replace with actual photography data
-const getGalleryItems = (categoryId: string) => {
-  const itemCount = 12;
+// Gallery items with actual images
+const getGalleryItems = (categoryId: string, albumId: string) => {
+  const category = categoryData[categoryId];
+  const itemCount = 30;
+  
   return Array.from({ length: itemCount }, (_, i) => ({
     id: i,
-    title: `${categoryData[categoryId]?.title || 'Photography'} ${i + 1}`,
-    image: `/placeholder-${categoryId}-${i + 1}.jpg`,
+    title: `${category?.title || 'Photography'} Album ${albumId} - Photo ${i + 1}`,
+    image: `/__manus__/${categoryId}/album${albumId}/${i + 1}.jpg`,
   }));
 };
 
-export default function PhotographyGallery({ categoryId }: { categoryId: string }) {
+export default function PhotographyGallery({ categoryId, albumId }: { categoryId: string; albumId: string }) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const category = categoryData[categoryId] || categoryData["wedding"];
-  const galleryItems = getGalleryItems(categoryId);
+  const galleryItems = getGalleryItems(categoryId, albumId);
+  const [validImages, setValidImages] = useState<Set<number>>(new Set());
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -44,6 +47,31 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
     }, 100);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Check which images actually exist
+    const checkImages = async () => {
+      const validSet = new Set<number>();
+      
+      for (const item of galleryItems) {
+        try {
+          const img = new Image();
+          await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = item.image;
+          });
+          validSet.add(item.id);
+        } catch (error) {
+          // Image doesn't exist, skip it
+        }
+      }
+      
+      setValidImages(validSet);
+    };
+
+    checkImages();
+  }, [categoryId, albumId]);
 
   const shouldAnimate = inView || isVisible;
 
@@ -101,20 +129,19 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
       <div className="container mx-auto px-4 relative z-10" ref={ref}>
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <Link href="/photography">
-            <motion.button
-              whileHover={{ x: -5 }}
-              className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors mb-6"
-            >
-              <ArrowLeft size={20} />
-              <span className="font-medium">Back to Categories</span>
-            </motion.button>
-          </Link>
+          <motion.button
+            whileHover={{ x: -5 }}
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors mb-6"
+          >
+            <ArrowLeft size={20} />
+            <span className="font-medium">Back</span>
+          </motion.button>
 
           <div className={`inline-block px-4 py-2 rounded-full bg-gradient-to-r ${category.color} text-white text-sm font-semibold mb-4`}>
             {category.title}
@@ -134,7 +161,7 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
           animate={shouldAnimate ? "visible" : "hidden"}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
-          {galleryItems.map((item) => (
+          {galleryItems.filter((item) => validImages.has(item.id)).map((item) => (
             <motion.div
               key={item.id}
               variants={itemVariants}
@@ -144,14 +171,24 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
               onClick={() => setSelectedImage(item.id)}
             >
               {/* Image Container */}
-              <div className="relative aspect-square bg-muted">
-                {/* Placeholder gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-20`} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-5xl font-bold text-foreground/20">
-                    {item.id + 1}
-                  </span>
-                </div>
+              <div className="relative aspect-square bg-muted overflow-hidden">
+                {item.image.startsWith("/__manus__") ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    {/* Placeholder gradient */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-20`} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-5xl font-bold text-foreground/20">
+                        {item.id + 1}
+                      </span>
+                    </div>
+                  </>
+                )}
 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -209,10 +246,23 @@ export default function PhotographyGallery({ categoryId }: { categoryId: string 
                   <path d="m6 6 12 12" />
                 </svg>
               </button>
-              <div className={`aspect-square bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center`}>
-                <span className="text-7xl font-bold text-white/30">
-                  {selectedImage + 1}
-                </span>
+              <div className="relative aspect-square bg-gradient-to-br rounded-2xl overflow-hidden">
+                {galleryItems[selectedImage]?.image.startsWith("/__manus__") ? (
+                  <img
+                    src={galleryItems[selectedImage]?.image}
+                    alt={galleryItems[selectedImage]?.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color}`} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-7xl font-bold text-white/30">
+                        {selectedImage + 1}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
           </motion.div>

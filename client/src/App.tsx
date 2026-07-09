@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import PortfolioGalleryPage from "./pages/PortfolioGalleryPage";
 import Photography from "./pages/Photography";
+import PhotographyAlbumsPage from "./pages/PhotographyAlbumsPage";
 import PhotographyGalleryPage from "./pages/PhotographyGalleryPage";
 
 
@@ -18,7 +19,8 @@ function Router() {
       <Route path={"/portfolio"} component={Portfolio} />
       <Route path={"/portfolio/:categoryId"} component={PortfolioGalleryPage} />
       <Route path={"/photography"} component={Photography} />
-      <Route path={"/photography/:categoryId"} component={PhotographyGalleryPage} />
+      <Route path={"/photography/:categoryId"} component={PhotographyAlbumsPage} />
+      <Route path={"/photography/:categoryId/:albumId"} component={PhotographyGalleryPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

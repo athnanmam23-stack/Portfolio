@@ -231,20 +231,19 @@ export default function PortfolioGallery({ categoryId }: { categoryId: string })
       <div className="container mx-auto px-4 relative z-10" ref={ref}>
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <Link href="/portfolio">
-            <motion.button
-              whileHover={{ x: -5 }}
-              className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors mb-6"
-            >
-              <ArrowLeft size={20} />
-              <span className="font-medium">Back to Categories</span>
-            </motion.button>
-          </Link>
+          <motion.button
+            whileHover={{ x: -5 }}
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors mb-6"
+          >
+            <ArrowLeft size={20} />
+            <span className="font-medium">Back</span>
+          </motion.button>
 
           <div className={`inline-block px-4 py-2 rounded-full bg-gradient-to-r ${category.color} text-white text-sm font-semibold mb-4`}>
             {category.title}

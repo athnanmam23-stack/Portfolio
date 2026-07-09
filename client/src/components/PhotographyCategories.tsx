@@ -33,7 +33,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: -40 },
   visible: {
     opacity: 1,
     y: 0,
@@ -97,21 +97,20 @@ export default function PhotographyCategories() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <Link href="/">
-            <motion.button
-              whileHover={{ x: -5 }}
-              className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors"
-            >
-              <ArrowLeft size={20} />
-              <span className="font-medium">Back to Home</span>
-            </motion.button>
-          </Link>
+          <motion.button
+            whileHover={{ x: -5 }}
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            <span className="font-medium">Back</span>
+          </motion.button>
         </motion.div>
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >

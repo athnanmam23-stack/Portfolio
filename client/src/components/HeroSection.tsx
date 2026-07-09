@@ -3,7 +3,7 @@ import { ArrowDown } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function HeroSection() {
-  const titles = ["Graphic Designer", "UI/UX Designer", "Photographer"];
+  const titles = ["Graphic Designer", "UI/UX Designer", "Photographer", "Web Developer"];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -14,9 +14,9 @@ export default function HeroSection() {
   }, [titles.length]);
 
   const scrollToNext = () => {
-    const aboutSection = document.querySelector("#about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
+    const projectsSection = document.querySelector("#projects");
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -80,7 +80,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed"
           >
-            Software Engineer, UI/UX Designer, Graphic Designer, and Photographer crafting beautiful digital experiences that blend functionality, aesthetics, and innovation.
+            Web Developer, UI/UX Designer, Graphic Designer, and Photographer crafting beautiful digital experiences that blend functionality, aesthetics, and innovation.
           </motion.p>
 
           {/* CTA Buttons */}
