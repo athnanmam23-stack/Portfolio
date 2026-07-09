@@ -33,7 +33,7 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const category = categoryData[categoryId] || categoryData["wedding"];
   const galleryItems = getGalleryItems(categoryId, albumId);
-  const [validImages, setValidImages] = useState<Set<number>>(new Set());
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -47,31 +47,6 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
     }, 100);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    // Check which images actually exist
-    const checkImages = async () => {
-      const validSet = new Set<number>();
-      
-      for (const item of galleryItems) {
-        try {
-          const img = new Image();
-          await new Promise((resolve, reject) => {
-            img.onload = resolve;
-            img.onerror = reject;
-            img.src = item.image;
-          });
-          validSet.add(item.id);
-        } catch (error) {
-          // Image doesn't exist, skip it
-        }
-      }
-      
-      setValidImages(validSet);
-    };
-
-    checkImages();
-  }, [categoryId, albumId]);
 
   const shouldAnimate = inView || isVisible;
 
@@ -161,7 +136,7 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
           animate={shouldAnimate ? "visible" : "hidden"}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
-          {galleryItems.filter((item) => validImages.has(item.id)).map((item) => (
+          {galleryItems.map((item) => (
             <motion.div
               key={item.id}
               variants={itemVariants}
@@ -172,11 +147,12 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
             >
               {/* Image Container */}
               <div className="relative aspect-square bg-muted overflow-hidden">
-                {item.image.startsWith("/__manus__") ? (
+                {item.image.startsWith("/__manus__") && !failedImages.has(item.id) ? (
                   <img
                     src={item.image}
                     alt={item.title}
                     loading="lazy"
+                    onError={() => setFailedImages(prev => new Set(prev).add(item.id))}
                     className="w-full h-full object-cover"
                   />
                 ) : (
