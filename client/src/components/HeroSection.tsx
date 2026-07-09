@@ -21,7 +21,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden pt-20">
+    <section className="relative min-h-screen w-full pt-20">
       {/* Background with Photo and Overlay */}
       <div className="absolute inset-0">
         {/* Photo Background - Face on left side */}
@@ -39,7 +39,7 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 h-screen flex flex-col justify-center">
+      <div className="relative z-10 container mx-auto px-4 min-h-screen flex flex-col justify-center py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Left Content */}
           <motion.div
@@ -66,7 +66,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
-                className="block text-accent text-4xl md:text-5xl lg:text-6xl whitespace-nowrap"
+                className="block text-accent text-4xl md:text-5xl lg:text-6xl"
               >
                 {titles[currentIndex]}
               </motion.span>
