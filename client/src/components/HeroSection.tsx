@@ -120,6 +120,7 @@ export default function HeroSection() {
                 <img
                   src="/hero-image.jpg"
                   alt="Athnan"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>

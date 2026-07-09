@@ -176,6 +176,7 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
                   <img
                     src={item.image}
                     alt={item.title}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 ) : (

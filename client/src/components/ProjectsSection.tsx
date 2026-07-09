@@ -14,21 +14,21 @@ export default function ProjectsSection() {
       title: "Mobile App UI Design",
       category: "UI/UX Design",
       description: "Comprehensive mobile application interface design with user-centered approach and modern design patterns.",
-      image: "/manus-storage/project-showcase-1_6e6d46a7.png",
+      image: "/your-project-image1.jpeg",
       tags: ["Figma", "Mobile Design", "Prototyping"],
     },
     {
       title: "Brand Identity System",
       category: "Graphic Design",
       description: "Complete branding package including logo design, color palette, and brand guidelines for a creative agency.",
-      image: "/manus-storage/project-showcase-2_0b25022d.png",
+      image: "/your-project-image2.jpg",
       tags: ["Branding", "Logo Design", "Design System"],
     },
     {
       title: "Professional Photography",
       category: "Photography",
       description: "Curated collection of professional portrait, wedding, and product photography with premium editing.",
-      image: "/manus-storage/photography-gallery-sample_6964ca7c.png",
+      image: "/your-project-image3.jpg",
       tags: ["Photography", "Editing", "Curation"],
     },
   ];
@@ -157,6 +157,7 @@ export default function ProjectsSection() {
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
