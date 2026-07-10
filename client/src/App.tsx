@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import ImageSecurity from "./components/ImageSecurity";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -35,6 +36,7 @@ function App() {
         defaultTheme="dark"
       >
         <TooltipProvider>
+          <ImageSecurity />
           <Toaster />
           <div className="min-h-screen bg-background text-foreground">
             <Router />
