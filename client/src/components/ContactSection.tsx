@@ -34,8 +34,16 @@ export default function ContactSection() {
       return;
     }
 
-    // Simulate form submission
-    toast.success("Message sent! I'll get back to you soon.");
+    // Format message for WhatsApp
+    const message = `*New Contact Form Submission*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappNumber = "94772330954"; // Your WhatsApp number without + or spaces
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    // Open WhatsApp with the message
+    window.open(whatsappUrl, '_blank');
+    
+    toast.success("Opening WhatsApp to send your message...");
     setFormData({ name: "", email: "", message: "" });
   };
 
