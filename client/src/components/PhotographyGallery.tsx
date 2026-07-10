@@ -202,12 +202,12 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-4xl max-h-[90vh]"
+              className="relative w-full max-w-6xl max-h-[90vh] md:max-h-[85vh]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute -top-12 right-0 text-white hover:text-accent transition-colors"
+                className="absolute -top-12 md:-top-14 right-0 text-white hover:text-accent transition-colors z-10"
               >
                 <svg
                   width="32"
@@ -223,12 +223,12 @@ export default function PhotographyGallery({ categoryId, albumId }: { categoryId
                   <path d="m6 6 12 12" />
                 </svg>
               </button>
-              <div className="relative aspect-square bg-gradient-to-br rounded-2xl overflow-hidden">
+              <div className="relative w-full h-full bg-black rounded-2xl overflow-hidden flex items-center justify-center">
                 {galleryItems[selectedImage]?.image.startsWith("/__manus__") ? (
                   <img
                     src={galleryItems[selectedImage]?.image}
                     alt={galleryItems[selectedImage]?.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain max-h-[80vh] md:max-h-[75vh]"
                   />
                 ) : (
                   <>

@@ -64,7 +64,7 @@ export default function ContactSection() {
       icon: MapPin,
       label: "Location",
       value: "Riyadh, Saudi Arabia",
-      href: "#",
+      href: "https://maps.app.goo.gl/CgTbqPdFUNKepzW99?g_st=iw",
     },
   ];
 
